@@ -1,0 +1,13 @@
+name: 'md-table-of-contents'
+description: 'create, or update table of contents in markdown (for example, README.md).'
+inputs:
+  markdown-file-path:
+    description: 'target markdown file path.'
+    required: true
+    default: 'README.md'
+outputs:
+  result:
+    description: '"success" or "failure".'
+runs:
+  using: 'node12'
+  main: 'main.js'

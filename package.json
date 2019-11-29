@@ -1,0 +1,23 @@
+{
+  "name": "md-table-of-contents",
+  "version": "1.0.0",
+  "description": "GitHub Actions, to create, or update table of contents in markdown (for example, README.md).",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taku-o/md-table-of-contents.git"
+  },
+  "author": "taku-o <mail@nanasi.jp> (https://nanasi.jp/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/taku-o/md-table-of-contents/issues"
+  },
+  "homepage": "https://github.com/taku-o/md-table-of-contents#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.0",
+    "@actions/github": "^1.1.0"
+  }
+}
