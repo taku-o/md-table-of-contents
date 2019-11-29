@@ -1,70 +1,14 @@
+'use strict';
 const core = require('@actions/core');
 const github = require('@actions/github');
-
-const toc = require('markdown-toc');
-const Vinyl = require('vinyl');
-
-const mdFilePath = core.getInput('markdown-file-path');
-console.log(`target markdown file is ${mdFilePath}.`);
-
-
-const file = new Vinyl({
-  path: mdFilePath,
-
-});
-
-    var tocIndex = new File({path: index});
-    tocIndex.contents = new Buffer(output.join('\n'));
-
-    if (typeof opts.index === 'function') {
-      prepareDest(tocIndex, opts.index, opts);
-    }
-
-    this.push(tocIndex);
-    cb();
-
-
-
-    try {
-      var str = file.contents.toString();
-      file.toc = toc(str, opts);
-      file.contents = new Buffer(toc.insert(str, opts));
-    } catch (err) {
-      var errorOpts = {fileName: file.path, showStack: true};
-      this.emit('error', new PluginError('gulp-markdown-toc', err, errorOpts));
-      return;
-    }
-
-
-
-
-function render(str, options) {
-  return new Remarkable()
-    .use(toc.plugin(options)) // <= register the plugin
-    .render(str);
-}
-
-
-try {
-
-
-  const time = (new Date()).toTimeString();
-  core.setOutput("time", time);
-  // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${payload}`);
-} catch (error) {
-  core.setFailed(error.message);
-}
-
-
 
 const path = require('path');
 const File = require('vinyl');
 const PluginError = require('plugin-error');
 const through = require('through2');
+const toc = require('markdown-toc');
 
-module.exports = function(options) {
+function markdownToc(options) {
   var opts = Object.assign({}, options);
   var files = [];
 
@@ -173,3 +117,18 @@ function prepareDest(file, dest, options) {
   cloned.path = writePath;
   file.path = path.join(file.base, cloned.relative);
 }
+
+const mdFilePath = core.getInput('markdown-file-path');
+console.log(`target markdown file is ${mdFilePath}.`);
+
+markdownToc()
+
+
+gulp.task('toc', () => {
+  return gulp
+    .src('docs/README.md')
+    .pipe(toc())
+    .pipe(gulp.dest('docs'));
+});
+
+
